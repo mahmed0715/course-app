@@ -8,6 +8,9 @@ import { EnrollmentsModule } from "./enrollments/enrollments.module";
 import { PrismaService } from "./prisma.service";
 import { CloudinaryModule } from "./cloudinary/cloudinary.module";
 import { MailerModule } from "@nestjs-modules/mailer";
+import { StripeModule } from './stripe/stripe.module';
+import { PaymentsController } from './payments/payments.controller';
+import { WebhooksController } from './webhooks/webhooks.controller';
 @Module({
   imports: [
     MailerModule.forRoot({
@@ -32,7 +35,9 @@ import { MailerModule } from "@nestjs-modules/mailer";
     LessonsModule,
     EnrollmentsModule,
     CloudinaryModule,
+    StripeModule,
   ],
   providers: [PrismaService],
+  controllers: [PaymentsController, WebhooksController],
 })
 export class AppModule {}

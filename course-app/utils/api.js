@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_URL = 'http://localhost:5000';
 
 // Create an axios instance
-const axiosInstance = axios.create({
+ export const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
@@ -92,3 +92,10 @@ export const deleteLesson = async (courseId, lessonId) => {
   const response = await axiosInstance.delete(`/courses/${courseId}/lessons/${lessonId}`);
   return response.data;
 };
+
+export const purchaseCourse = async (session, selectedCourseId) => {
+  await axiosInstance.post('/payments/purchase-course', {
+    userId: session.user.id, // Assuming you have user session data
+    courseId: selectedCourseId,
+  });
+}

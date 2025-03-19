@@ -4,8 +4,9 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CourseCard from '../../components/CourseCard';
 import { fetchCourses } from '../../utils/api';
-import { isAdmin, isInstructor, isStudent } from '../../../utils/roles';
+import { useUserRole } from '../../../hooks/useUserRole';
 const Courses = () => {
+  const { isAdmin, isInstructor, isStudent } = useUserRole();
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [minPrice, setMinPrice] = useState('');

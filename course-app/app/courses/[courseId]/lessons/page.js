@@ -4,8 +4,9 @@ import { useParams, useRouter } from 'next/navigation';
 import { fetchLessonsByCourseId } from '../../../../utils/api';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-import { isAdmin, isInstructor, isStudent } from '../../../../utils/roles';
+import { useUserRole } from '../../../../hooks/useUserRole';
 const LessonsPage = () => {
+   const { isAdmin, isInstructor, isStudent } = useUserRole();
   const { courseId } = useParams();
   const router = useRouter();
   const [course, setCourse] = useState(null);
