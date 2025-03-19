@@ -5,6 +5,8 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 import axios from 'axios';
 import { axiosInstance } from '../utils/api';
 import Link from 'next/link';
+import { motion } from "framer-motion";
+
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
@@ -78,6 +80,13 @@ const CourseCard = ({ course, onBuyCourse, onDeleteCourse, isAdmin, isStudent })
   };
 
   return (
+    <motion.div
+      className="course-card"
+      initial={{ opacity: 0, y: 50 }} // initial state
+      animate={{ opacity: 1, y: 0 }}  // final state
+      transition={{ duration: 0.5 }}   // transition duration
+      whileHover={{ scale: 1.05 }}    // hover effect
+    >
     <div className="p-6 transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
       <h2 className="mb-2 text-xl font-bold">{course.title}</h2>
       <p className="mb-4 text-gray-700">{course.description}</p>
@@ -125,6 +134,7 @@ const CourseCard = ({ course, onBuyCourse, onDeleteCourse, isAdmin, isStudent })
         </div>
       )}
     </div>
+    </motion.div>
   );
 };
 
