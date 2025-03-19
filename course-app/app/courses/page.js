@@ -4,8 +4,10 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CourseCard from '../../components/CourseCard';
 import { fetchCourses, addCourse, deleteCourse } from '../../utils/api';
-
+import { useSession } from 'next-auth/react';
 const Courses = () => {
+  const { data: session } = useSession();
+
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [minPrice, setMinPrice] = useState('');
@@ -20,9 +22,9 @@ const Courses = () => {
   const coursesPerPage = 6;
 
   // Check if the user is an admin
-  const isAdmin = localStorage.getItem('userRole') === 'ADMIN';
-  const isStudent = localStorage.getItem('userRole') === 'STUDENT';
-  const isInstructor = localStorage.getItem('userRole') === 'INSTRUCTOR';
+  const isAdmin = session?.user?.role === 'ADMIN';
+  const isStudent = session?.user?.role === 'STUDENT';
+  const isInstructor = session?.user?.role === 'INSTRUCTOR';
   useEffect(() => {
     const getCourses = async () => {
       try {

@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import useAuthStore from '../store/authStore';
 
+import { signOut } from 'next-auth/react';
 const Navbar = () => {
   const { user, isAuthenticated, logout } = useAuthStore();
 
@@ -14,7 +15,7 @@ const Navbar = () => {
             <>
               <Link href="/dashboard" className="px-4 py-2 bg-green-500 rounded hover:underline hover:bg-green-600">Dashboard</Link>
               <Link href="/courses" className="px-4 py-2 bg-green-500 rounded hover:underline hover:bg-green-600">Courses</Link>
-              <button onClick={logout} className="px-4 py-2 bg-red-500 rounded hover:bg-red-600">Logout</button>
+              <button   onClick={() => signOut()} className="px-4 py-2 bg-red-500 rounded hover:bg-red-600">Logout</button>
             </>
           ) : (
             <>

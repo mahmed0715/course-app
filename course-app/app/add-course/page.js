@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { addCourse } from '../../utils/api';
+import ProtectedRoute from '../../components/ProtectedRoute';
 
 const AddCourse = () => {
   const [title, setTitle] = useState('');
@@ -22,6 +23,7 @@ const AddCourse = () => {
   };
 
   return (
+    <ProtectedRoute requiredRole="INSTRUCTOR">
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="p-8 bg-white rounded shadow-md w-96">
         <h1 className="mb-6 text-2xl font-bold">Add Course</h1>
@@ -69,6 +71,7 @@ const AddCourse = () => {
         </form>
       </div>
     </div>
+    </ProtectedRoute>
   );
 };
 
