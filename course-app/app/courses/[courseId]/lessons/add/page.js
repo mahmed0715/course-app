@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../../../../../components/Navbar'; // Import Navbar
 import Footer from '../../../../../components/Footer'; // Import Footer
+import { addLesson } from '../../../../../utils/api';
 
 const AddLessonPage = () => {
   const { courseId } = useParams();
@@ -41,13 +42,7 @@ const AddLessonPage = () => {
       formData.append('content', content);
       formData.append('courseId', courseId);
 
-      const response = await axios.post(
-        `/api/lessons/upload-video`,
-        formData,
-        {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        },
-      );
+      const response = await addLesson(courseId, formData);
 
       router.push(`/courses/${courseId}/lessons`);
     } catch (err) {

@@ -47,14 +47,15 @@ export class LessonsController {
     return this.lessonsService.remove(+id);
   }
 
-  @Post(":courseId/upload-video")
+  @Post("/upload-video")
   @UseInterceptors(FileInterceptor("video"))
   async uploadVideo(
     @UploadedFile() file: any,
-    @Param("courseId", ParseIntPipe) courseId: number,
     @Body() createLessonDto: CreateLessonDto
   ) {
+    console.log(file);
     const videoUrl = await this.cloudinaryService.uploadVideo(file);
+    console.log("video uploaded!!");
     return this.lessonsService.create({ ...createLessonDto, videoUrl });
   }
 }

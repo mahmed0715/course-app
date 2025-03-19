@@ -77,7 +77,9 @@ export const fetchLessonById = async (courseId, lessonId) => {
 };
 
 export const addLesson = async (courseId, lessonData) => {
-  const response = await axiosInstance.post(`/lessons`, { courseId, ...lessonData });
+  const response = await axiosInstance.post(`/lessons/upload-video`, lessonData,  {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return response.data;
 };
 

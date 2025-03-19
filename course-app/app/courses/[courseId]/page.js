@@ -4,7 +4,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import CourseCard from '../../components/CourseCard';
 import { fetchCourses } from '../../utils/api';
-
+import { isAdmin, isInstructor, isStudent } from '../../../utils/roles';
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -100,6 +100,7 @@ const Courses = () => {
               key={course.id}
               course={course}
               onBuyCourse={handleBuyCourse}
+              isStudent={isStudent}
             />
           ))}
         </div>

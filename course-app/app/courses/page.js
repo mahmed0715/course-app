@@ -5,6 +5,7 @@ import Footer from '../../components/Footer';
 import CourseCard from '../../components/CourseCard';
 import { fetchCourses, addCourse, deleteCourse } from '../../utils/api';
 import { useSession } from 'next-auth/react';
+import { isAdmin, isInstructor, isStudent } from '../../utils/roles';
 const Courses = () => {
   const { data: session } = useSession();
 
@@ -22,9 +23,7 @@ const Courses = () => {
   const coursesPerPage = 6;
 
   // Check if the user is an admin
-  const isAdmin = session?.user?.role === 'ADMIN';
-  const isStudent = session?.user?.role === 'STUDENT';
-  const isInstructor = session?.user?.role === 'INSTRUCTOR';
+ 
   useEffect(() => {
     const getCourses = async () => {
       try {

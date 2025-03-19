@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { fetchLessonsByCourseId } from '../../../../utils/api';
 import Navbar from '../../../../components/Navbar';
 import Footer from '../../../../components/Footer';
-
+import { isAdmin, isInstructor, isStudent } from '../../../../utils/roles';
 const LessonsPage = () => {
   const { courseId } = useParams();
   const router = useRouter();
@@ -12,7 +12,6 @@ const LessonsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const isAdmin = localStorage.getItem('userRole') === 'ADMIN';
 
   useEffect(() => {
     const getCourse = async () => {
@@ -67,7 +66,7 @@ const LessonsPage = () => {
       <main className="container flex-grow p-4 mx-auto">
         <h1 className="mb-6 text-2xl font-bold">{course.title} - Lessons</h1>
 
-        {isAdmin && (
+        {isAdmin || isInstructor && (
           <button
             onClick={handleAddLesson}
             className="px-4 py-2 mb-4 text-white bg-blue-500 rounded hover:bg-blue-600"
@@ -88,7 +87,7 @@ const LessonsPage = () => {
                 </video>
               )}
               <div className="mt-2 space-x-2">
-                {isAdmin && (
+                {isAdmin || isInstructor && (
                   <button
                     onClick={() => handleEditLesson(lesson.id)}
                     className="px-3 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-600"
@@ -96,7 +95,7 @@ const LessonsPage = () => {
                     Edit
                   </button>
                 )}
-                {isAdmin && (
+                {isAdmin || isInstructor && (
                   <button
                     onClick={() => handleDeleteLesson(lesson.id)}
                     className="px-3 py-1 text-white bg-red-500 rounded hover:bg-red-600"
